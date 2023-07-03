@@ -25,8 +25,11 @@ function SignupForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    axios.post("http://localhost:5000/signup", formData).then((response)=>{
-        navigate.push("/");
+    console.log("called");
+   
+    axios.post("http://localhost:5000/signup", formData).then((response)=>
+    {
+    navigate.push("/");
     })
         
    
@@ -35,7 +38,7 @@ function SignupForm() {
   return (
     <div>
       <div className="signup-container">
-        <form action="/signup" method="post" onSubmit={handleSubmit}>
+        <form  method="post" onSubmit={handleSubmit}>
           <Logo />
           <br />
           <div>
@@ -53,7 +56,7 @@ function SignupForm() {
           <div>
             <label>Email:</label>
             <input
-              type="email"
+              type="text"
               value={email}
               placeholder="Email"
               onChange={(e) => {
