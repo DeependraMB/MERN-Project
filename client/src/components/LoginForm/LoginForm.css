@@ -1,0 +1,11 @@
+.login-container{
+    background-color: #ffff;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    align-items: center;
+    text-align: center;
+    width: fit-content;
+    margin: auto;
+    margin-top: 150px;
+    padding: 50px 50px 50px 50px;
+    margin-bottom: 90px;
+}

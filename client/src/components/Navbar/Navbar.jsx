@@ -10,7 +10,9 @@ const Navbar = () => {
         class="navbar navbar-expand-lg navbar-light bg-light fixed-top"
         style={{ margin: "0 -3px",fontSize:"20px" }}
       >
+        <Link to="/">
         <Logo/>
+        </Link>
         <button
           class="navbar-toggler"
           type="button"

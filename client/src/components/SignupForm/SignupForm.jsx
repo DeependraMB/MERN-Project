@@ -12,6 +12,7 @@ function SignupForm() {
   const [password, setPassword] = useState("");
   const [cpassword, setCpassword] = useState("");
   const navigate = useNavigate();
+  
 
   console.log(name);
   const formData = {
@@ -27,9 +28,9 @@ function SignupForm() {
     e.preventDefault();
     console.log("called");
    
-    axios.post("http://localhost:5000/signup", formData).then((response)=>
+    axios.post("http://localhost:5001/signup", formData).then((response)=>
     {
-    navigate.push("/");
+    navigate("/");
     })
         
    
