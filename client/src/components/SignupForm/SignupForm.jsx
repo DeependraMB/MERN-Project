@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Logo from "../Logo/Logo";
 import "./SignupForm.css";
 import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 function SignupForm() {
   const [name, setName] = useState("");
@@ -27,10 +29,20 @@ function SignupForm() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log("called");
-   
-    axios.post("http://localhost:5001/signup", formData).then((response)=>
+    toast.success('SignUp Successfully!!!!!!', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+    
+    axios.post("http://localhost:5001/auth/signup", formData).then((response)=>
     {
-    navigate("/");
+    navigate("/login");
     })
         
    

@@ -3,10 +3,14 @@ import Logo from "../Logo/Logo";
 import "./LoginForm.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useAuth } from "../../context/auth";
+
 
 function LoginForm() {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
 
   const formData = {
@@ -18,22 +22,31 @@ function LoginForm() {
     e.preventDefault();
 
     console.log("handlesubmit Login Called");
-
-    axios
-      .post("http://localhost:5001/login", formData)
-      .then((response) => {
-        
-        if (response.data === "exist") {
-          
-          alert("Login SuccessFully");
-        } else if (response.data === "notexist") {
-          alert("Invalid Username or Password");
+    try {
+      axios.post("http://localhost:5001/auth/login", formData).then((res) => {
+        if (res.data && res.data.success) {
+          toast.success("Login Successfully!!!!!!", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          setAuth({
+            ...auth,
+            user: res.data.user,
+            token: res.data.token,
+          });
+          localStorage.setItem("auth",JSON.stringify(res.data))
+          navigate("/");
         }
-      })
-      .catch((e) => {
-        alert("Wrong Details!!!!");
-        console.log(e);
       });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

@@ -2,8 +2,20 @@ import { useEffect } from "react";
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
+import { useAuth } from "../../context/auth";
 
 const Navbar = () => {
+
+  const { auth, setAuth } = useAuth();
+  const handleLogout =()=>{
+    setAuth({
+      ...auth,
+      user: null,
+      token: "",
+    })
+    localStorage.removeItem("auth");
+  }
+
   return (
     <div class="container-fluid " style={{ padding: "0 15px" }}>
       <nav
@@ -72,20 +84,33 @@ const Navbar = () => {
                 </a>
               </div>
             </li>
+            {
+              !auth.user ? (
+              <>
+              <li class="nav-item" style={{marginLeft:"300px"}}>
+              <Link to="/login">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          LogIn
+        </button>
+              </Link>
+          </li>
+          <li class="nav-item ml-5" >
+          <Link to="/signup">
+          <button class="btn btn-outline-success my-2 my-sm-0 ml-5" type="submit">
+          SignUp
+        </button>
+        </Link>
+          </li>
+              </>
+           )  : (
             <li class="nav-item" style={{marginLeft:"300px"}}>
-                <Link to="/login">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            LogIn
-          </button>
-                </Link>
-            </li>
-            <li class="nav-item ml-5" >
-            <Link to="/signup">
-            <button class="btn btn-outline-success my-2 my-sm-0 ml-5" type="submit">
-            SignUp
-          </button>
-          </Link>
-            </li>
+              <Link to="/login">
+          <button class="btn btn-outline-success my-2 my-sm-0" onClick={handleLogout} type="submit">
+          Logout
+        </button>
+              </Link>
+          </li>
+           ) }
           </ul>
 
           <input

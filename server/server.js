@@ -4,8 +4,8 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const User = require("../server/Models/User");
-const LoginModel = require("../server/Models/LoginModel");
+
+const authRouter = require("../server/Routes/authRouter");
 
 
 app.use(cors());
@@ -16,7 +16,7 @@ app.use(cookieParser());
 //Database Connection 
 
 mongoose
-  .connect("mongodb://localhost:27017/mydatabase", {
+  .connect("mongodb://localhost:27017/elecxpress", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -28,44 +28,21 @@ mongoose
   });
 
 
-//Signup Page setup
+//Routers
+app.use("/auth" ,authRouter);
 
-app.post("/signup", async (req, res) => {
+
+/*app.post("/login", async (req, res) => {
   const formData = req.body;
-  console.log(formData);
-
-  try {
-    const newUser = new User({
-      name: formData.name,
-      email: formData.email,
-      phoneno: formData.phoneno,
-      username: formData.username,
-    });
-    await newUser.save();
-
-    const newLogin = new LoginModel({
-      username: formData.username,
-      password: formData.password,
-      cpassword: formData.cpassword,
-    });
-    await newLogin
-      .save()
-      .then((data) => {
-        console.log(data);
-        res.json({ Status: "S" });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.json({ Status: "Error while inserting" });
-      });
-  } catch (err) {
-    console.error(err);
-    res.json({ Status: "F" });
-  }
-});
+  console.log(formData); })*/
 
 
-//Login Page SetUp
+
+
+
+
+
+/*Login Page SetUp
 
 app.post("/login", async (req, res) => {
   const formData = req.body;
@@ -86,10 +63,10 @@ app.post("/login", async (req, res) => {
     res.json("notexist");
   }
 });
-
+*/
 
 
 // Start the server
 app.listen(5001, () => {
-  console.log(`Server running on port 5000`);
+  console.log(`Server running on port 5001`);
 });
