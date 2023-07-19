@@ -16,7 +16,7 @@ function SignupForm() {
   const navigate = useNavigate();
   
 
-  console.log(name);
+  
   const formData = {
     name: name,
     email: email,
@@ -26,27 +26,34 @@ function SignupForm() {
     cpassword: cpassword,
   };
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log("called");
-    toast.success('SignUp Successfully!!!!!!', {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });
-    
-    axios.post("http://localhost:5001/auth/signup", formData).then((response)=>
-    {
-    navigate("/login");
-    })
-        
-   
+    try {
+      const res = await axios.post("http://localhost:5001/auth/signup", formData);
+      if (res.data && res.data.success) {
+        console.log("Handle submit called!");
+        toast.success(res.data.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        navigate("/login");
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something Went Wrong!!");
+    }
   }
+  
+   
+  
 
   return (
     <div>

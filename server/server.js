@@ -30,9 +30,10 @@ mongoose
 
 //Routers
 app.use("/auth" ,authRouter);
+app.use("/signin" ,authRouter);
 
 
-/*app.post("/login", async (req, res) => {
+/*app.post("/auth/signup", async (req, res) => {
   const formData = req.body;
   console.log(formData); })*/
 

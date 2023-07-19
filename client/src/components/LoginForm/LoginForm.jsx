@@ -23,7 +23,7 @@ function LoginForm() {
 
     console.log("handlesubmit Login Called");
     try {
-      axios.post("http://localhost:5001/auth/login", formData).then((res) => {
+      axios.post("http://localhost:5001/signin/login", formData).then((res) => {
         if (res.data && res.data.success) {
           toast.success("Login Successfully!!!!!!", {
             position: "top-center",
